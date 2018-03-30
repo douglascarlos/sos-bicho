@@ -1,6 +1,6 @@
 <?php
 
-namespace SOSBicho;
+namespace SOSBicho\Models;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;

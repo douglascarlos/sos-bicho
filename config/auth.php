@@ -67,7 +67,7 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => SOSBicho\User::class,
+            'model' => SOSBicho\Models\User::class,
         ],
 
         // 'users' => [

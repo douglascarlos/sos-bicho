@@ -2,7 +2,7 @@
 
 namespace SOSBicho\Http\Controllers\Auth;
 
-use SOSBicho\User;
+use SOSBicho\Models\User;
 use SOSBicho\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -59,7 +59,7 @@ class RegisterController extends Controller
      * Create a new user instance after a valid registration.
      *
      * @param  array  $data
-     * @return \SOSBicho\User
+     * @return \SOSBicho\Models\User
      */
     protected function create(array $data)
     {
