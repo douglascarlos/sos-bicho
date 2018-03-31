@@ -2,6 +2,7 @@
 
 namespace SOSBicho\Http\Controllers;
 
+use Illuminate\Filesystem\FilesystemManager;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use SOSBicho\Http\Requests\AnimalSaveRequest;
@@ -23,6 +24,7 @@ class AnimalController extends Controller
     private $especieEloquent;
     private $interesseEloquent;
     private $userEloquent;
+    private $fileSystem;
 
     public function __construct(
         Animal $animalEloquent,
@@ -30,7 +32,8 @@ class AnimalController extends Controller
         Raca $racaEloquent,
         Especie $especieEloquent,
         Interesse $interesseEloquent,
-        User $userEloquent
+        User $userEloquent,
+        FilesystemManager $fileSystem
     )
     {
         $this->animalEloquent = $animalEloquent;
@@ -39,6 +42,7 @@ class AnimalController extends Controller
         $this->especieEloquent = $especieEloquent;
         $this->interesseEloquent = $interesseEloquent;
         $this->userEloquent = $userEloquent;
+        $this->fileSystem = $fileSystem->disk('public');
     }
 
 
@@ -80,8 +84,14 @@ class AnimalController extends Controller
             $animal->userCadastro()->associate(auth()->user());
 
             if($request->hasFile('foto')){
+
+                if($animal->foto && $this->fileSystem->exists($animal->foto)){
+                    $this->fileSystem->delete($animal->foto);
+                }
+
                 $animal->foto = sha1(microtime()) . '.' . $request->file('foto')->extension();
-                Storage::disk('public')->put(
+
+                $this->fileSystem->put(
                     $animal->foto,
                     file_get_contents($request->file('foto')->getPathname())
                 );
