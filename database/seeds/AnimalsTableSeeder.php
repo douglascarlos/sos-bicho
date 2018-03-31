@@ -38,5 +38,12 @@ class AnimalsTableSeeder extends Seeder
             'nome' => 'Girfield',
             'nascimento' => \Carbon\Carbon::createFromFormat('d/m/Y', '28/03/1995'),
         ]);
+
+        \SOSBicho\Models\Animal::create([
+            'raca_id' => \SOSBicho\Models\Raca::where('nome', 'Preguiçoso')->first()->id,
+            'porte_id' => \SOSBicho\Models\Porte::where('nome', 'Pequeno')->first()->id,
+            'nome' => 'Mintia',
+            'nascimento' => \Carbon\Carbon::createFromFormat('d/m/Y', '14/06/2002'),
+        ]);
     }
 }

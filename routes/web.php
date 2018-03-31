@@ -27,4 +27,15 @@ Route::get('/lista', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::group(['middleware' => 'auth'], function () {
+
+    Route::get('/home', 'HomeController@index')->name('home');
+
+    Route::group(['prefix' => 'animais'], function () {
+        Route::get('', 'AnimalController@index')->name('animal-index');
+        Route::get('create', 'AnimalController@create')->name('animal-create');
+        Route::post('', 'AnimalController@save')->name('animal-save');
+        Route::get('{id}', 'AnimalController@edit')->name('animal-edit');
+    });
+
+});
