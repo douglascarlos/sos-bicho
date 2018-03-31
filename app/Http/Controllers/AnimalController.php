@@ -33,7 +33,6 @@ class AnimalController extends Controller
 
     public function index(Request $request)
     {
-//        dd($request->all());
         $portes = ModelToSelectArray::map($this->porteEloquent);
         $especies = ModelToSelectArray::map($this->especieEloquent);
 
@@ -73,8 +72,8 @@ class AnimalController extends Controller
 
     private function form(Animal $animal)
     {
-        $portes = $this->porteEloquent->all();
-        $racas = $this->racaEloquent->all();
+        $portes = ModelToSelectArray::map($this->porteEloquent);
+        $racas = ModelToSelectArray::map($this->racaEloquent);
         return view('animal.form')
             ->with(compact('animal', 'portes', 'racas'));
     }

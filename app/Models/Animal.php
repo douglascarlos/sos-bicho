@@ -2,11 +2,22 @@
 
 namespace SOSBicho\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 
 class Animal extends Model
 {
+
+    protected $dates = ['nascimento'];
+
+//    public function setNascimentoAttribute($value)
+//    {
+//        if($value instanceof Carbon){
+//            $this->attributes['nascimento'] = $value;
+//        }
+//        $this->attributes['nascimento'] = Carbon::createFromFormat('d/m/Y', $value);
+//    }
 
     public function porte()
     {
