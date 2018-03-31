@@ -13,6 +13,7 @@ use SOSBicho\Models\Especie;
 use SOSBicho\Models\Interesse;
 use SOSBicho\Models\Porte;
 use SOSBicho\Models\Raca;
+use SOSBicho\Models\User;
 
 class AnimalController extends Controller
 {
@@ -21,13 +22,15 @@ class AnimalController extends Controller
     private $racaEloquent;
     private $especieEloquent;
     private $interesseEloquent;
+    private $userEloquent;
 
     public function __construct(
         Animal $animalEloquent,
         Porte $porteEloquent,
         Raca $racaEloquent,
         Especie $especieEloquent,
-        Interesse $interesseEloquent
+        Interesse $interesseEloquent,
+        User $userEloquent
     )
     {
         $this->animalEloquent = $animalEloquent;
@@ -35,6 +38,7 @@ class AnimalController extends Controller
         $this->racaEloquent = $racaEloquent;
         $this->especieEloquent = $especieEloquent;
         $this->interesseEloquent = $interesseEloquent;
+        $this->userEloquent = $userEloquent;
     }
 
 
@@ -73,6 +77,7 @@ class AnimalController extends Controller
         try{
             $animal = $this->animalEloquent->findOrNew($request->get('id'));
             $animal->fill($request->all());
+            $animal->userCadastro()->associate(auth()->user());
             $animal->save();
             return $this->successMessage('Animal salvo com sucesso.', 'animal-index');
         }catch (Exception $exception) {
@@ -119,7 +124,8 @@ class AnimalController extends Controller
     {
         $portes = ModelToSelectArray::map($this->porteEloquent);
         $racas = ModelToGroupedSelectArray::map($this->racaEloquent, 'especie');
+        $users = ModelToSelectArray::map($this->userEloquent, 'name');
         return view('animal.form')
-            ->with(compact('animal', 'portes', 'racas'));
+            ->with(compact('animal', 'portes', 'racas', 'users'));
     }
 }

@@ -35,7 +35,7 @@
                         <br>
                         {{ $user->animaisInteressados->count() }} Interesse(s)
                         <br>
-                        2 adoções
+                        {{ $user->animaisAdotados->count() }} adoção(ões)
                     </div>
                 </div>
             </div>

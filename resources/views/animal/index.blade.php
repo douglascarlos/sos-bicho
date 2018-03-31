@@ -39,16 +39,24 @@
                             {{ link_to_route('animal-edit', $title = $animal->nome, $parameters = [$animal->id], $attributes = ['class' => '']) }}
                         </div>
                         <div class="col col-md-6" style="text-align: right;">
-                            Adotado
+                            @if($animal->adotado())
+                                Adotado por {{ $animal->userAdocao->name }}
+                            @else
+                                @if(auth()->user()->hasInteresse($animal))
+                                    {{ link_to_route('animal-remover-interrese', $title = 'Interassado(a)', $parameters = [$animal->id], $attributes = ['class' => '']) }}
+                                @else
+                                    {{ link_to_route('animal-marcar-interrese', $title = 'Tenho interesse', $parameters = [$animal->id], $attributes = ['class' => '']) }}
+                                @endif
+                            @endif
                         </div>
                     </div>
                 </div>
 
                 <div class="card-body">
                     {{ $animal->raca->especie->nome }}
-                    -
+                    <br>
                     {{ $animal->raca->nome }}
-                    -
+                    <br>
                     {{ $animal->porte->nome }}
                     <br>
                     {{ $animal->nascimento }}
@@ -57,11 +65,7 @@
                 <div class="card-footer">
                     <div class="row">
                         <div class="col col-md-6">
-                            @if(auth()->user()->hasInteresse($animal))
-                                {{ link_to_route('animal-remover-interrese', $title = 'Interassado', $parameters = [$animal->id], $attributes = ['class' => '']) }}
-                            @else
-                                {{ link_to_route('animal-marcar-interrese', $title = 'Tenho interesse', $parameters = [$animal->id], $attributes = ['class' => '']) }}
-                            @endif
+
                         </div>
                         <div class="col col-md-6" style="text-align: right;">
                             {{ $animal->pessoasInteressadas->count() }} Interessado(s)

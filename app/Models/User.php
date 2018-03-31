@@ -43,6 +43,21 @@ class User extends Authenticatable
         return !$this->interesses()->where('animal_id', $animal->id)->get()->isEmpty();
     }
 
+    public function animaisCadastrados()
+    {
+        return $this->hasMany(Animal::class, 'user_cadastro_id');
+    }
+
+    public function isUserCadastro(Animal $animal)
+    {
+        return !$this->animaisCadastrados()->where('animals.id', $animal->id)->get()->isEmpty();
+    }
+
+    public function animaisAdotados()
+    {
+        return $this->hasMany(Animal::class, 'user_adocao_id');
+    }
+
     public function scopeSearch($query, Request $request){
         if(!empty($request->get('name'))){
             $query->where('name', 'like', "%{$request->get('name')}%");

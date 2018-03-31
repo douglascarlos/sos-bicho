@@ -16,6 +16,7 @@ class Animal extends Model
         'raca_id',
         'porte_id',
         'nascimento',
+        'user_adocao_id',
     ];
 
     public function porte()
@@ -38,6 +39,21 @@ class Animal extends Model
         return $this->belongsToMany(User::class, 'interesses');
     }
 
+    public function userCadastro()
+    {
+        return $this->belongsTo(User::class, 'user_cadastro_id');
+    }
+
+    public function userAdocao()
+    {
+        return $this->belongsTo(User::class, 'user_adocao_id');
+    }
+
+    public function adotado()
+    {
+        return $this->userAdocao instanceof User;
+    }
+
     public function scopeSearch($query, Request $request){
         if(!empty($request->get('porte_id'))){
             $query->where('porte_id', $request->get('porte_id'));
@@ -49,6 +65,6 @@ class Animal extends Model
             });
         }
 
-        return $query->get();
+        return $query->orderBy('nome')->get();
     }
 }

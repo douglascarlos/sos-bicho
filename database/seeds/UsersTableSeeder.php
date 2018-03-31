@@ -16,5 +16,11 @@ class UsersTableSeeder extends Seeder
             'email' => 'dnevescarlos@gmail.com',
             'password' => \Hash::make('123123'),
         ]);
+
+        \SOSBicho\Models\User::create([
+            'name' => 'Paula',
+            'email' => 'paula.danieli@gmail.com',
+            'password' => \Hash::make('123123'),
+        ]);
     }
 }

@@ -13,17 +13,42 @@ class RacasTableSeeder extends Seeder
     {
         \SOSBicho\Models\Raca::create([
             'especie_id' => \SOSBicho\Models\Especie::where('nome', 'Cachorro')->first()->id,
+            'nome' => 'Vira lata'
+        ]);
+
+        \SOSBicho\Models\Raca::create([
+            'especie_id' => \SOSBicho\Models\Especie::where('nome', 'Cachorro')->first()->id,
             'nome' => 'Box'
         ]);
 
         \SOSBicho\Models\Raca::create([
             'especie_id' => \SOSBicho\Models\Especie::where('nome', 'Cachorro')->first()->id,
+            'nome' => 'Pintcher'
+        ]);
+
+        \SOSBicho\Models\Raca::create([
+            'especie_id' => \SOSBicho\Models\Especie::where('nome', 'Cachorro')->first()->id,
+            'nome' => 'Buldog Francês'
+        ]);
+
+        \SOSBicho\Models\Raca::create([
+            'especie_id' => \SOSBicho\Models\Especie::where('nome', 'Cachorro')->first()->id,
+            'nome' => 'Dalmata'
+        ]);
+
+        \SOSBicho\Models\Raca::create([
+            'especie_id' => \SOSBicho\Models\Especie::where('nome', 'Cachorro')->first()->id,
+            'nome' => 'São Bernardo'
+        ]);
+
+        \SOSBicho\Models\Raca::create([
+            'especie_id' => \SOSBicho\Models\Especie::where('nome', 'Gato')->first()->id,
             'nome' => 'Vira lata'
         ]);
 
         \SOSBicho\Models\Raca::create([
             'especie_id' => \SOSBicho\Models\Especie::where('nome', 'Gato')->first()->id,
-            'nome' => 'Francês'
+            'nome' => 'Ciamês'
         ]);
 
         \SOSBicho\Models\Raca::create([
