@@ -70,6 +70,9 @@
 
         <main class="py-4">
             <div class="container">
+                @include('layouts._errors')
+                @include('layouts._error')
+                @include('layouts._success')
                 @yield('content')
             </div>
         </main>

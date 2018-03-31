@@ -3,6 +3,7 @@
 namespace SOSBicho\Http\Controllers;
 
 use Illuminate\Http\Request;
+use SOSBicho\Http\Requests\AnimalSaveRequest;
 use SOSBicho\Mappers\ModelToSelectArray;
 use SOSBicho\Models\Animal;
 use Exception;
@@ -61,7 +62,7 @@ class AnimalController extends Controller
         }
     }
 
-    public function save(Request $request)
+    public function save(AnimalSaveRequest $request)
     {
         try{
             dd($request->all());

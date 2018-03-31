@@ -7,7 +7,7 @@
         </div>
         <div class="card-body">
             {{ Form::open(['route' => 'animal-save', 'method' => 'POST', 'files' => true, 'class' => 'form']) }}
-
+            {{ Form::hidden('id', $animal->id) }}
             <div class="row">
                 <div class="col col-md-4">
                     {{ Form::label('nome', 'Nome', ['class' => 'control-label']) }}
