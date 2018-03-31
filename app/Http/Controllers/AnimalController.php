@@ -3,7 +3,7 @@
 namespace SOSBicho\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use SOSBicho\Http\Requests\AnimalSaveRequest;
 use SOSBicho\Mappers\ModelToGroupedSelectArray;
 use SOSBicho\Mappers\ModelToSelectArray;
@@ -78,7 +78,17 @@ class AnimalController extends Controller
             $animal = $this->animalEloquent->findOrNew($request->get('id'));
             $animal->fill($request->all());
             $animal->userCadastro()->associate(auth()->user());
+
+            if($request->hasFile('foto')){
+                $animal->foto = sha1(microtime()) . '.' . $request->file('foto')->extension();
+                Storage::disk('public')->put(
+                    $animal->foto,
+                    file_get_contents($request->file('foto')->getPathname())
+                );
+            }
+
             $animal->save();
+
             return $this->successMessage('Animal salvo com sucesso.', 'animal-index');
         }catch (Exception $exception) {
             return $this->errorMessage($exception, 'animal-index');
