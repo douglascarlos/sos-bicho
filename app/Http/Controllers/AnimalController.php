@@ -4,6 +4,7 @@ namespace SOSBicho\Http\Controllers;
 
 use Illuminate\Http\Request;
 use SOSBicho\Http\Requests\AnimalSaveRequest;
+use SOSBicho\Mappers\ModelToGroupedSelectArray;
 use SOSBicho\Mappers\ModelToSelectArray;
 use SOSBicho\Models\Animal;
 use Exception;
@@ -77,7 +78,7 @@ class AnimalController extends Controller
     private function form(Animal $animal)
     {
         $portes = ModelToSelectArray::map($this->porteEloquent);
-        $racas = ModelToSelectArray::map($this->racaEloquent);
+        $racas = ModelToGroupedSelectArray::map($this->racaEloquent, 'especie');
         return view('animal.form')
             ->with(compact('animal', 'portes', 'racas'));
     }
