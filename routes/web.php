@@ -15,6 +15,16 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/lista', function () {
+    dump(
+        \SOSBicho\Models\Animal::all(),
+        \SOSBicho\Models\Especie::all(),
+        \SOSBicho\Models\Porte::all(),
+        \SOSBicho\Models\Raca::all(),
+        \SOSBicho\Models\User::all()
+    );
+});
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
