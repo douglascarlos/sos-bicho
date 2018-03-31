@@ -33,7 +33,7 @@
                     <div class="card-body">
                         {{ $user->email }}
                         <br>
-                        12 interesses
+                        {{ $user->animaisInteressados->count() }} Interesse(s)
                         <br>
                         2 adoções
                     </div>
