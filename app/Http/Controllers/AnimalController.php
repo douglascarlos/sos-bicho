@@ -81,7 +81,10 @@ class AnimalController extends Controller
         try{
             $animal = $this->animalEloquent->findOrNew($request->get('id'));
             $animal->fill($request->all());
-            $animal->userCadastro()->associate(auth()->user());
+
+            if(!$animal->exists){
+                $animal->userCadastro()->associate(auth()->user());
+            }
 
             if($request->hasFile('foto')){
 
