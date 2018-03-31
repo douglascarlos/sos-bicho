@@ -24,12 +24,24 @@ class AnimalSaveRequest extends FormRequest
     public function rules()
     {
         return [
-            'id' => 'sometimes|required|integer|exists:animals,id',
+            'id' => 'nullable|integer|exists:animals,id',
             'nome' => 'required|min:3|max:255',
             'raca_id' => 'required|integer|exists:racas,id',
             'porte_id' => 'required|integer|exists:portes,id',
             'nascimento' => 'required|date',
             'foto' => 'sometimes|file'
+        ];
+    }
+
+    public function attributes()
+    {
+        return [
+            'id' => 'ID',
+            'nome' => 'Nome',
+            'raca_id' => 'Raça',
+            'porte_id' => 'Porte',
+            'nascimento' => 'Data de nascimento',
+            'foto' => 'Foto'
         ];
     }
 }

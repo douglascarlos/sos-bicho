@@ -25,7 +25,7 @@
                 </div>
 
                 <div class="col col-md-4">
-                    {{ Form::label('nascimento', 'Nascimento', ['class' => 'control-label']) }}
+                    {{ Form::label('nascimento', 'Data de nascimento', ['class' => 'control-label']) }}
                     {{ Form::date('nascimento', old('nascimento', $animal->nascimento), ['class' => 'form-control']) }}
                 </div>
 

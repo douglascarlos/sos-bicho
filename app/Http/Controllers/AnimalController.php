@@ -48,7 +48,7 @@ class AnimalController extends Controller
             $animal = $this->animalEloquent->newInstance();
             return $this->form($animal);
         }catch (Exception $exception) {
-            dd($exception);
+            return $this->errorMessage($exception, 'animal-index');
         }
     }
 
@@ -58,7 +58,7 @@ class AnimalController extends Controller
             $animal = $this->animalEloquent->findOrFail($id);
             return $this->form($animal);
         }catch (Exception $exception) {
-            dd($exception);
+            return $this->errorMessage($exception, 'animal-index');
         }
     }
 
@@ -67,7 +67,7 @@ class AnimalController extends Controller
         try{
             dd($request->all());
         }catch (Exception $exception) {
-            dd($exception);
+            return $this->errorMessage($exception, 'animal-index');
         }
     }
 
