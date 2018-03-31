@@ -12,9 +12,14 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-    protected function errorMessage(Exception $exception, $route, $routeParameters = [])
+    protected function errorMessage(Exception $exception)
     {
         $errorMessage = "Ocorreu um erro. {$exception->getMessage()}";
         return back()->with(compact('errorMessage'));
+    }
+
+    protected function successMessage($successMessage, $route, $routeParameters = [])
+    {
+        return redirect()->route($route, $routeParameters)->with(compact('successMessage'));
     }
 }

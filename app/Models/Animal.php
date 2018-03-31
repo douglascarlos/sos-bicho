@@ -11,13 +11,12 @@ class Animal extends Model
 
     protected $dates = ['nascimento'];
 
-//    public function setNascimentoAttribute($value)
-//    {
-//        if($value instanceof Carbon){
-//            $this->attributes['nascimento'] = $value;
-//        }
-//        $this->attributes['nascimento'] = Carbon::createFromFormat('d/m/Y', $value);
-//    }
+    protected $fillable = [
+        'nome',
+        'raca_id',
+        'porte_id',
+        'nascimento',
+    ];
 
     public function porte()
     {

@@ -65,7 +65,10 @@ class AnimalController extends Controller
     public function save(AnimalSaveRequest $request)
     {
         try{
-            dd($request->all());
+            $animal = $this->animalEloquent->findOrNew($request->get('id'));
+            $animal->fill($request->all());
+            $animal->save();
+            return $this->successMessage('Animal salvo com sucesso.', 'animal-index');
         }catch (Exception $exception) {
             return $this->errorMessage($exception, 'animal-index');
         }
