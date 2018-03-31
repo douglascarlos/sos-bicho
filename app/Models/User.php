@@ -2,6 +2,7 @@
 
 namespace SOSBicho\Models;
 
+use Illuminate\Http\Request;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -26,4 +27,12 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function scopeSearch($query, Request $request){
+        if(!empty($request->get('name'))){
+            $query->where('name', 'like', "%{$request->get('name')}%");
+        }
+
+        return $query->get();
+    }
 }
