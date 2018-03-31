@@ -28,6 +28,16 @@ class Animal extends Model
         return $this->belongsTo(Raca::class);
     }
 
+    public function interesses()
+    {
+        return $this->hasMany(Interesse::class);
+    }
+
+    public function pessoasInteressadas()
+    {
+        return $this->belongsToMany(User::class, 'interesses');
+    }
+
     public function scopeSearch($query, Request $request){
         if(!empty($request->get('porte_id'))){
             $query->where('porte_id', $request->get('porte_id'));

@@ -34,9 +34,14 @@
         <div class="col col-md-4">
             <div class="card">
                 <div class="card-header">
-                    {{ link_to_route('animal-edit', $title = $animal->nome, $parameters = [$animal->id], $attributes = ['class' => '']) }}
-                    -
-                    Adotado
+                    <div class="row">
+                        <div class="col col-md-6">
+                            {{ link_to_route('animal-edit', $title = $animal->nome, $parameters = [$animal->id], $attributes = ['class' => '']) }}
+                        </div>
+                        <div class="col col-md-6" style="text-align: right;">
+                            Adotado
+                        </div>
+                    </div>
                 </div>
 
                 <div class="card-body">
@@ -50,7 +55,18 @@
                 </div>
 
                 <div class="card-footer">
-                    Tenho interesse 12 Interessados
+                    <div class="row">
+                        <div class="col col-md-6">
+                            @if(auth()->user()->hasInteresse($animal))
+                                {{ link_to_route('animal-remover-interrese', $title = 'Interassado', $parameters = [$animal->id], $attributes = ['class' => '']) }}
+                            @else
+                                {{ link_to_route('animal-marcar-interrese', $title = 'Tenho interesse', $parameters = [$animal->id], $attributes = ['class' => '']) }}
+                            @endif
+                        </div>
+                        <div class="col col-md-6" style="text-align: right;">
+                            {{ $animal->pessoasInteressadas->count() }} Interessado(s)
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

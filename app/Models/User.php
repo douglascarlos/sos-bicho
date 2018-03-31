@@ -28,6 +28,21 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    public function interesses()
+    {
+        return $this->hasMany(Interesse::class);
+    }
+
+    public function animaisInteressados()
+    {
+        return $this->belongsToMany(Animal::class, 'interesses');
+    }
+
+    public function hasInteresse(Animal $animal)
+    {
+        return !$this->interesses()->where('animal_id', $animal->id)->get()->isEmpty();
+    }
+
     public function scopeSearch($query, Request $request){
         if(!empty($request->get('name'))){
             $query->where('name', 'like', "%{$request->get('name')}%");
