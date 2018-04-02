@@ -1,12 +1,38 @@
 @extends('layouts.app')
 
 @section('content')
+    {{ Form::open(['route' => 'animal-save', 'method' => 'POST', 'files' => true, 'class' => 'form']) }}
+
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <div class="card-header">
+                    Foto
+                </div>
+
+                <div class="card-img">
+                    <div class="col col-md-4 mt-2" @if($animal->foto) style=" float: left;" @endif>
+                        {{ Form::label('foto', 'Adicionar/substituir', ['class' => 'control-label']) }}
+                        {{ Form::file('foto', ['disabled' => !auth()->user()->isUserCadastro($animal) && $animal->exists, 'class' => 'form-control']) }}
+                    </div>
+                    @if($animal->foto)
+                    <div class="text-center p-2" style="float: right;">
+                        <img src="{{ asset('storage/'.$animal->foto) }}" alt="Foto" class="mt-2" style="max-width: 100%;">
+                    </div>
+                    @else
+                        <div class="card-body"></div>
+                    @endif
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <br>
     <div class="card">
         <div class="card-header">
-            Animal
+            Dados
         </div>
         <div class="card-body">
-            {{ Form::open(['route' => 'animal-save', 'method' => 'POST', 'files' => true, 'class' => 'form']) }}
             {{ Form::hidden('id', $animal->id) }}
             <div class="row">
                 <div class="col col-md-4">
@@ -29,14 +55,14 @@
                     {{ Form::date('nascimento', old('nascimento', $animal->nascimento), ['class' => 'form-control']) }}
                 </div>
 
-                <div class="col col-md-4">
-                    {{ Form::label('foto', 'Foto', ['class' => 'control-label']) }}
-                    {{ Form::file('foto', ['class' => 'form-control', 'ext' => '.pdf']) }}
-                </div>
+                {{--<div class="col col-md-4">--}}
+                    {{--{{ Form::label('foto', 'Foto', ['class' => 'control-label']) }}--}}
+                    {{--{{ Form::file('foto', ['disabled' => !auth()->user()->isUserCadastro($animal) && $animal->exists, 'class' => 'form-control']) }}--}}
+                {{--</div>--}}
 
                 <div class="col col-md-4">
                     {{ Form::label('user_adocao_id', 'Adotado por', ['class' => 'control-label']) }}
-                    {{ Form::select('user_adocao_id', $users, old('user_adocao_id', $animal->user_adocao_id), ['placeholder' => 'Não adotado', 'disabled' => !auth()->user()->isUserCadastro($animal), 'class' => 'form-control']) }}
+                    {{ Form::select('user_adocao_id', $users, old('user_adocao_id', $animal->user_adocao_id), ['placeholder' => 'Não adotado', 'disabled' => !auth()->user()->isUserCadastro($animal) && $animal->exists, 'class' => 'form-control']) }}
                 </div>
             </div>
             <div class="row" style="float: right;">
@@ -45,31 +71,32 @@
                 {{ Form::submit('Salvar', ['class' => 'btn btn-primary']) }}
                 </div>
             </div>
-            {{ Form::close() }}
         </div>
     </div>
+    {{ Form::close() }}
+
     @if($animal->id)
-    <br>
-    <div class="row card-columns">
-        <div class="col">
-            <div class="card">
-                <div class="card-header">
-                    Pessoas Interessadas
-                </div>
-                <div class="card-body">
-                    <ul>
-                    @foreach($animal->pessoasInteressadas as $user)
-                        <li>
-                        {{ $user->name }} ({{ $user->email }})
-                        </li>
-                    @endforeach
-                    @if($animal->pessoasInteressadas->isEmpty())
-                        Não há pessoas interessadas neste momento.
-                    @endif
-                    </ul>
+        <br>
+        <div class="row card-columns">
+            <div class="col">
+                <div class="card">
+                    <div class="card-header">
+                        Pessoas Interessadas
+                    </div>
+                    <div class="card-body">
+                        <ul>
+                            @foreach($animal->pessoasInteressadas as $user)
+                                <li>
+                                    {{ $user->name }} ({{ $user->email }})
+                                </li>
+                            @endforeach
+                            @if($animal->pessoasInteressadas->isEmpty())
+                                Não há pessoas interessadas neste momento.
+                            @endif
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
     @endif
 @endsection
