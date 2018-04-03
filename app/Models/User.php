@@ -60,9 +60,9 @@ class User extends Authenticatable
 
     public function scopeSearch($query, Request $request){
         if(!empty($request->get('name'))){
-            $query->where('name', 'like', "%{$request->get('name')}%");
+            $name = mb_strtoupper($request->get('name'));
+            $query->whereRaw("UPPER(name) LIKE '%{$name}%'");
         }
-
         return $query->get();
     }
 }
