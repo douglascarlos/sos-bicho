@@ -17,7 +17,7 @@
                     </div>
                     @if($animal->foto)
                     <div class="text-center p-2" style="float: right;">
-                        <img src="{{ asset('storage/'.$animal->foto) }}" alt="Foto" class="mt-2" style="max-width: 100%;">
+                        <img src="{{ $animal->fotoInBase64() }}" alt="Foto" class="mt-2" style="max-width: 100%;">
                     </div>
                     @else
                         <div class="card-body"></div>
@@ -54,11 +54,6 @@
                     {{ Form::label('nascimento', 'Data de nascimento', ['class' => 'control-label']) }}
                     {{ Form::date('nascimento', old('nascimento', $animal->nascimento), ['class' => 'form-control']) }}
                 </div>
-
-                {{--<div class="col col-md-4">--}}
-                    {{--{{ Form::label('foto', 'Foto', ['class' => 'control-label']) }}--}}
-                    {{--{{ Form::file('foto', ['disabled' => !auth()->user()->isUserCadastro($animal) && $animal->exists, 'class' => 'form-control']) }}--}}
-                {{--</div>--}}
 
                 <div class="col col-md-4">
                     {{ Form::label('user_adocao_id', 'Adotado por', ['class' => 'control-label']) }}

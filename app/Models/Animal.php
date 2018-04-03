@@ -54,6 +54,21 @@ class Animal extends Model
         return $this->userAdocao instanceof User;
     }
 
+    public function fotoInBase64()
+    {
+        if(is_null($this->attributes['foto'])){
+            return null;
+        }
+
+        $streamSouce = $this->attributes['foto'];
+        $binaryContent = stream_get_contents($streamSouce);
+        $string = pg_unescape_bytea($binaryContent);
+        $html = htmlspecialchars($string);
+
+//        dd($streamSouce, $binaryContent, $string, $html);
+        return $html;
+    }
+
     public function scopeSearch($query, Request $request){
         if(!empty($request->get('porte_id'))){
             $query->where('porte_id', $request->get('porte_id'));

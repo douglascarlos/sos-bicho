@@ -25,7 +25,7 @@ class CreateAnimalsTable extends Migration
             $table->foreign('user_adocao_id')->references('id')->on('users');
             $table->string('nome');
             $table->date('nascimento');
-            $table->string('foto')->nullable();
+            $table->binary('foto')->nullable();
             $table->timestamps();
         });
     }

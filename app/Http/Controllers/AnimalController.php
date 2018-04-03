@@ -2,12 +2,11 @@
 
 namespace SOSBicho\Http\Controllers;
 
-use Illuminate\Filesystem\FilesystemManager;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 use SOSBicho\Http\Requests\AnimalSaveRequest;
 use SOSBicho\Mappers\ModelToGroupedSelectArray;
 use SOSBicho\Mappers\ModelToSelectArray;
+use SOSBicho\Mappers\UploadedFileToBase64Mapper;
 use SOSBicho\Models\Animal;
 use Exception;
 use SOSBicho\Models\Especie;
@@ -24,7 +23,6 @@ class AnimalController extends Controller
     private $especieEloquent;
     private $interesseEloquent;
     private $userEloquent;
-    private $fileSystem;
 
     public function __construct(
         Animal $animalEloquent,
@@ -32,8 +30,7 @@ class AnimalController extends Controller
         Raca $racaEloquent,
         Especie $especieEloquent,
         Interesse $interesseEloquent,
-        User $userEloquent,
-        FilesystemManager $fileSystem
+        User $userEloquent
     )
     {
         $this->animalEloquent = $animalEloquent;
@@ -42,7 +39,6 @@ class AnimalController extends Controller
         $this->especieEloquent = $especieEloquent;
         $this->interesseEloquent = $interesseEloquent;
         $this->userEloquent = $userEloquent;
-        $this->fileSystem = $fileSystem->disk('public');
     }
 
 
@@ -87,19 +83,9 @@ class AnimalController extends Controller
             }
 
             if($request->hasFile('foto')){
-
-                if($animal->foto && $this->fileSystem->exists($animal->foto)){
-                    $this->fileSystem->delete($animal->foto);
-                }
-
-                $animal->foto = sha1(microtime()) . '.' . $request->file('foto')->extension();
-
-                $this->fileSystem->put(
-                    $animal->foto,
-                    file_get_contents($request->file('foto')->getPathname())
-                );
+                $animal->foto = UploadedFileToBase64Mapper::map($request->file('foto'));
             }
-
+//            dd($animal);
             $animal->save();
 
             return $this->successMessage('Animal salvo com sucesso.', 'animal-index');
