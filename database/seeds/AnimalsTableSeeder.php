@@ -39,7 +39,7 @@ class AnimalsTableSeeder extends Seeder
             'raca_id' => \SOSBicho\Models\Raca::where('nome', 'Preguiçoso')->first()->id,
             'porte_id' => \SOSBicho\Models\Porte::where('nome', 'Grande')->first()->id,
             'user_cadastro_id' => \SOSBicho\Models\User::where('name', 'Douglas')->first()->id,
-            'nome' => 'Girfield',
+            'nome' => 'Garfield',
             'nascimento' => \Carbon\Carbon::createFromFormat('d/m/Y', '28/03/1995'),
         ]);
 
