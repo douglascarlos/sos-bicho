@@ -1,10 +1,6 @@
 <?php
 
 Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::get('/sosbicho', function () {
     return redirect()->route('animal-index');
 })->name('sosbicho');
 
