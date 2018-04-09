@@ -4,6 +4,10 @@ Route::get('/', function () {
     return redirect()->route('animal-index');
 })->name('sosbicho');
 
+Route::get('/sosbicho', function () {
+    return redirect()->route('animal-index');
+});
+
 Auth::routes();
 
 Route::group(['middleware' => 'auth'], function () {
