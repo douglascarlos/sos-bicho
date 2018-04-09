@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+    <h1>Animais</h1>
     <div class="card">
         <div class="card-header">
             Filtros
