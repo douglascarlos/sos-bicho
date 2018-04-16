@@ -3,7 +3,7 @@
 @section('content')
     <div class="card">
         <div class="card-header">
-            Filtros dos Animais
+            Filtros
         </div>
         <div class="card-body">
             {{ Form::open(['route' => 'animal-index', 'method' => 'GET', 'class' => 'form']) }}
